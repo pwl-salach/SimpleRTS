@@ -31,9 +31,13 @@ ACameraPawn::ACameraPawn()
 	SpringArm->SetupAttachment(RootComponent);
 	SpringArm->SetRelativeRotation(FRotator(-40.f, 0.f, 0.f));
 	SpringArm->TargetArmLength = CurrentZoom;
-	
+	// Camera should fly over everything
+	SpringArm->bDoCollisionTest = false;
+
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
+
+
 }
 
 // Called to bind functionality to input
