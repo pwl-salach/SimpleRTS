@@ -10,21 +10,23 @@ ACameraPawn::ACameraPawn()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// Default settings
 	MoveSpeed = 1200;
 	RotateSpeed = 200;
+	ZoomingSpeed = 100;
 
 	MinZoom = 300;
 	MaxZoom = 4500;
-	ZoomingSpeed = 100;
-	DefaultZoom = 3000;
-	CurrentZoom = DefaultZoom;
-	ZoomChange = 0;
+	MinHeightAboveLandscape = 50;
+	MaxHeightAboveLandscape = 200;
 	ScreenEdgeMovementMargin = 5;
 
-	RotateEnabled = false;
+	DefaultZoom = 3000;
+	CurrentZoom = DefaultZoom;
 
+
+	// Components setup
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root Component"));
-
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
 	SpringArm->SetupAttachment(RootComponent);
 	SpringArm->SetRelativeRotation(FRotator(-40.f, 0.f, 0.f));
@@ -38,7 +40,6 @@ ACameraPawn::ACameraPawn()
 void ACameraPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	// PlayerInputComponent->BindAxis("ScreenXBorder", this, &ACameraPawn::CalculateStraightMove);
 	PlayerInputComponent->BindAxis("RotateTrigger", this, &ACameraPawn::HandleRotateTrigger);
 	PlayerInputComponent->BindAxis("MouseRotate", this, &ACameraPawn::CalculateRotationInput);
 	PlayerInputComponent->BindAxis("ScrollZoom", this, &ACameraPawn::CalculateZoomChange);
@@ -48,7 +49,6 @@ void ACameraPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 void ACameraPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
@@ -56,14 +56,12 @@ void ACameraPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	CalculateScreenEdgesMovement();
-	RotateCamera();
-	MoveCamera();
-	HandleCameraZoom();
+	HandleMovement();
+	HandleZoom();
 }
 
 void ACameraPawn::CalculateStraightMove(float Value) 
 {
-
 	MoveDirection = FVector(Value * MoveSpeed * GetWorld()->DeltaTimeSeconds, MoveDirection.Y, 0);
 }
 
@@ -119,22 +117,35 @@ void ACameraPawn::CalculateScreenEdgesMovement()
 	}
 }
 
-void ACameraPawn::MoveCamera() 
-{
-	AddActorLocalOffset(MoveDirection, false);
-}
-
-void ACameraPawn::RotateCamera() 
-{
-	AddActorLocalRotation(RotationDirection, false);
-}
-
 void ACameraPawn::HandleRotateTrigger(float Value) 
 {
 	RotateEnabled = Value > 0;
 }
 
-void ACameraPawn::HandleCameraZoom() 
+void ACameraPawn::HandleMovement() 
+{
+	AddActorLocalRotation(RotationDirection, false);
+	FVector PredictedLocation = GetActorLocation();
+	FVector NullLevelLocation = FVector(PredictedLocation.X, PredictedLocation.Y, 0.f);
+	FCollisionQueryParams TraceParams;
+	FHitResult Hit;
+	bool bHit = GetWorld()->LineTraceSingleByChannel(Hit, PredictedLocation, NullLevelLocation, ECC_WorldStatic, TraceParams);
+	if(bHit){
+		if(PredictedLocation.Z - Hit.ImpactPoint.Z  < MinHeightAboveLandscape){
+			MoveDirection.Z = MinHeightAboveLandscape - (PredictedLocation.Z - Hit.ImpactPoint.Z);
+		} else if (PredictedLocation.Z - Hit.ImpactPoint.Z > MaxHeightAboveLandscape){
+			MoveDirection.Z = MaxHeightAboveLandscape - (PredictedLocation.Z - Hit.ImpactPoint.Z);
+		}
+	}
+	AddActorLocalOffset(MoveDirection, false);
+}
+
+void ACameraPawn::CalculateZoomChange(float Value) 
+{
+	ZoomChange = (int32)(Value * ZoomingSpeed);
+}
+
+void ACameraPawn::HandleZoom() 
 {
 	// Zooming in
 	int32 TmpZoom = CurrentZoom - ZoomChange;
@@ -146,10 +157,3 @@ void ACameraPawn::HandleCameraZoom()
 		CurrentZoom = TmpZoom;
 	SpringArm->TargetArmLength = CurrentZoom;
 }
-
-void ACameraPawn::CalculateZoomChange(float Value) 
-{
-	ZoomChange = (int32)(Value * ZoomingSpeed);
-}
-
-

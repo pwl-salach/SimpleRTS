@@ -26,40 +26,39 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	class UCameraComponent* Camera;
 
-	// Camera related
+	// Do I need any blueprints related stuff?
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	int32 MoveSpeed;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	int32 RotateSpeed;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
+	int32 ZoomingSpeed;
 
 	// Camera constrains
 	int32 MinZoom;
 	int32 MaxZoom;
-	int32 ZoomingSpeed;
-	int32 CurrentZoom;
-	int32 DefaultZoom;
-	int32 ZoomChange;
-	
+	int32 MinHeightAboveLandscape;
+	int32 MaxHeightAboveLandscape;
 	int32 ScreenEdgeMovementMargin;
+
+	int32 DefaultZoom;
+	int32 CurrentZoom;
+	
+	// change realted variables
 	FVector MoveDirection;
-	FQuat RotationDirection;
-
 	bool RotateEnabled;
+	FQuat RotationDirection;
+	int32 ZoomChange;
 
+	void CalculateScreenEdgesMovement();
 	void CalculateStraightMove(float Value);
 	void CalculateSideMove(float Value);
-	void MoveCamera();
-
-	void HandleCameraZoom();
-	void CalculateZoomChange(float Value);
-
-	//Not used
 	void CalculateRotationInput(float Value);
-	void CalculateScreenEdgesMovement();
-
-	void RotateCamera();
-
 	void HandleRotateTrigger(float Value);
+	void HandleMovement();
+
+	void CalculateZoomChange(float Value);
+	void HandleZoom();
 	
 public:	
 	// Called every frame
