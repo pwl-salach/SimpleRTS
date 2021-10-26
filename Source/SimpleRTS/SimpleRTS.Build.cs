@@ -8,7 +8,19 @@ public class SimpleRTS : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[] { 
+			// DEFAULTS
+			"Core", 
+			"CoreUObject", 
+			"Engine", 
+			"InputCore", 
+			// END OF DEFAULTS
+			"Landscape", 
+			// "LandscapeEditor"
+			"Slate",
+			"SlateCore",
+			"UMG"
+		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

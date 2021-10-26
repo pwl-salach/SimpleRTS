@@ -11,17 +11,17 @@ ACameraPawn::ACameraPawn()
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Default settings
-	MoveSpeed = 1200;
+	MoveSpeed = 800;
 	RotateSpeed = 200;
 	ZoomingSpeed = 100;
 
 	MinZoom = 300;
-	MaxZoom = 4500;
+	MaxZoom = 2000;
 	MinHeightAboveLandscape = 50;
 	MaxHeightAboveLandscape = 200;
 	ScreenEdgeMovementMargin = 5;
 
-	DefaultZoom = 3000;
+	DefaultZoom = 1500;
 	CurrentZoom = DefaultZoom;
 
 

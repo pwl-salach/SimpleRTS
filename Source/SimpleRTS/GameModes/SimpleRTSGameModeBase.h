@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "SimpleRTSGameModeBase.generated.h"
 
+
 /**
  * 
  */
@@ -32,4 +33,7 @@ protected:
 
 public:
 	void ActorDied(AActor *DeadActor);
+
+private:
+
 };
