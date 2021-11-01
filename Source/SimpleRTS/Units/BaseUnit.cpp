@@ -2,12 +2,16 @@
 
 
 #include "BaseUnit.h"
+#include "../Components/SelectableComponent.h"
 
 // Sets default values
 ABaseUnit::ABaseUnit()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	SelectableComponent = CreateDefaultSubobject<USelectableComponent>(TEXT("Selected Representation"));
+	SelectableComponent->RegisterComponent();
 }
 
 // Called when the game starts or when spawned

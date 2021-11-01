@@ -97,7 +97,6 @@ void ACameraPawn::CalculateScreenEdgesMovement()
 	if (GameViewport->IsFocused(GameViewport->Viewport) && GameViewport->GetMousePosition(MousePosition))
     {
 		FVector2D ScreenSize;
-
 		GameViewport->GetViewportSize(ScreenSize);
 		if (ScreenEdgeMovementMargin > MousePosition.Y){
 			// forward

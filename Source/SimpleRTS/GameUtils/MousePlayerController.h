@@ -16,8 +16,21 @@ class SIMPLERTS_API AMousePlayerController : public APlayerController
 public:
 	AMousePlayerController();
 	
+	bool IsSelecting();
+	FVector2D GetSelectionStartingPoint();
+	FVector2D GetSelectionEndingPoint();
 protected:
 
 private:
 
+	TArray<AActor*> SelectedObjects;
+
+	virtual void SetupInputComponent() override;
+
+
+	bool SelectionInProgress;
+	FVector2D SelectionStartingPoint;
+	FVector2D SelectionEndingPoint;
+	void StartSelection();
+	void EndSelection();
 };

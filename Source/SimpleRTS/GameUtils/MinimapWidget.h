@@ -20,19 +20,11 @@ public:
 	virtual void NativeConstruct() override;
 
 private:
-
-	bool bCanEverTick : 1;
-	class USceneCaptureComponent2D* MinimapCamera;
- 	class UMaterial* mSnapshotMaterial;
-	class UCanvasPanel* RootWidget;
-	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = "true"))
 	class UImage* TargetImage;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = "true"))
-	class UTextBlock* ItemTitle = nullptr;
 
-	class UMaterialInstanceDynamic *dynamicMaterial;
-	class USceneCaptureComponent2D *MinimapCaptureComponent;
-	class ASceneCapture2D *MinimapCaptureActor;
+	class USceneCaptureComponent2D* Camera;
+ 	class UMaterial* BaseMaterial;
+	class UMaterialInstanceDynamic *Material;
 	class UTextureRenderTarget2D *RenderTarget;
 };

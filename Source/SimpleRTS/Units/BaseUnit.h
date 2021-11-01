@@ -20,7 +20,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-
+	class USelectableComponent* SelectableComponent;
 
 public:	
 	// Called every frame

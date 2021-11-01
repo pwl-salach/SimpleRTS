@@ -6,9 +6,7 @@
 #include "GameFramework/HUD.h"
 #include "InGameHUD.generated.h"
 
-
 class UMinimapWidget;
-
 /**
  * 
  */
@@ -26,8 +24,12 @@ public:
 
 	virtual void Tick(float DeltaSeconds) override;
 
+	TArray<AActor*> GetSelectedActors();
+
 private:
 	UMinimapWidget* Minimap;
 
-	TSubclassOf<class UMinimapWidget> MinimapClass;
+	TSubclassOf<UMinimapWidget> MinimapClass;
+
+	TArray<AActor*> SelectedObjects;
 };
