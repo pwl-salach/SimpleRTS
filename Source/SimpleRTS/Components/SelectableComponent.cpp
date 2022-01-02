@@ -2,14 +2,16 @@
 
 
 #include "SelectableComponent.h"
+#include "Engine/Texture2D.h"
 
 // Sets default values for this component's properties
 USelectableComponent::USelectableComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-
+	PrimaryComponentTick.bCanEverTick = false;
+	Selected = false;
+	Focused = false;
 	// ...
 }
 
@@ -30,5 +32,10 @@ void USelectableComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+UTexture2D* USelectableComponent::GetAvatar() 
+{
+	return Avatar;
 }
 

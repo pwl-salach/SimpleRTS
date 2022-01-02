@@ -20,6 +20,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	class USelectableComponent* SelectableComponent;
 
 public:	

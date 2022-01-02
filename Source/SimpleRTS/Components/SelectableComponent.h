@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "SelectableComponent.generated.h"
 
+class UTexture2D;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SIMPLERTS_API USelectableComponent : public UActorComponent
@@ -23,8 +24,13 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
+	UTexture2D* GetAvatar();
 private:
 	uint8 Priority;
+	bool Selected;
+	bool Focused;
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
+	UTexture2D* Avatar;
+
 };

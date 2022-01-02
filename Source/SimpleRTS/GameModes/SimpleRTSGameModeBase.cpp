@@ -3,7 +3,7 @@
 #include "SimpleRTSGameModeBase.h"
 #include "../GameUtils/CameraPawn.h"
 #include "../GameUtils/MousePlayerController.h"
-#include "../GameUtils/InGameHUD.h"
+#include "../GUI/InGameHUD.h"
 
 void ASimpleRTSGameModeBase::BeginPlay()
 {

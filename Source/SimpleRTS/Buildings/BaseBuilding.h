@@ -26,7 +26,7 @@ private:
 	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
 	class UCapsuleComponent* CapsuleComponent;
 
-	UPROPERTY(EditDefaultsOnly, meta = (AllowPribateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* MainTexture;
 
 

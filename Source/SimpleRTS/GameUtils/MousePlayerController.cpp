@@ -3,7 +3,7 @@
 
 #include "MousePlayerController.h"
 #include "GameFramework/HUD.h"
-#include "InGameHUD.h"
+#include "../GUI/InGameHUD.h"
 #include "../Components/SelectableComponent.h"
 
 AMousePlayerController::AMousePlayerController() 
@@ -52,13 +52,16 @@ void AMousePlayerController::EndSelection()
         UE_LOG(LogTemp, Error, TEXT("GameViewport not set"));    
     }
     AInGameHUD* HUD = Cast<AInGameHUD>(GetHUD());
-    SelectedObjects = HUD->GetSelectedActors();
-    for(AActor* Iter : SelectedObjects){
+    TArray<AActor*> UnfilteredSelected = HUD->GetSelectedActors();
+    SelectedObjects.Empty();
+    for(AActor* Iter : UnfilteredSelected){
         TArray<UActorComponent*> SelectableRepresentation = Iter->GetComponentsByClass(USelectableComponent::StaticClass());
         if(SelectableRepresentation.Num() > 0){
-            UE_LOG(LogTemp, Warning, TEXT("QWE: %s"), *Iter->GetName());   
+            UE_LOG(LogTemp, Warning, TEXT("Selected: %s"), *Iter->GetName());   
+            SelectedObjects.Add(Iter);
         }
     }
+    HUD->UpdateUserSelection(SelectedObjects);
     SelectionInProgress = false;
 }
 
