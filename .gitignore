@@ -1,9 +1,13 @@
 Binaries
+Content/AnimalVarietyPack
+Content/StarterContent
+Content/beffio
 DerivedDataCache
 Intermediate
 Saved
 .vscode
 .vs
+*.code-workspace
 *.VC.db
 *.opensdf
 *.opendb
