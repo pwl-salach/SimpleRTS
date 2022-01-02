@@ -44,7 +44,7 @@ void USelectionWidget::Update(TArray<AActor*> SelectedObjects)
         for(AActor* IterActor : SelectedObjects){
             UImage* IterAvatar = CreateAvatar(IterActor);
             TargetWidget->AddChild(IterAvatar);
-            MutipleAvatars.Add(IterAvatar);
+            MultipleAvatars.Add(IterAvatar);
             UCanvasPanelSlot* AvatarSlot = Cast<UCanvasPanelSlot>(IterAvatar->Slot);
             if (AvatarSlot)
             {
@@ -58,10 +58,10 @@ void USelectionWidget::Update(TArray<AActor*> SelectedObjects)
 
 void USelectionWidget::ClearSelection() 
 {
-    for(UImage* IterAvatar : MutipleAvatars){
+    for(UImage* IterAvatar : MultipleAvatars){
         IterAvatar = nullptr;
     }
-    MutipleAvatars.Empty();
+    MultipleAvatars.Empty();
     if(SingleAvatar != nullptr){
         SingleAvatar = nullptr;
     }

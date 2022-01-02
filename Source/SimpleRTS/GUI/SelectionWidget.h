@@ -32,7 +32,7 @@ private:
 
 	// UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UImage* SingleAvatar;
-	TArray<UImage*> MutipleAvatars;
+	TArray<UImage*> MultipleAvatars;
 
 	void ClearSelection();
 	UImage* CreateAvatar(AActor* SelectedActor);
