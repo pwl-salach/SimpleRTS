@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "BaseBuilding.generated.h"
 
+
 UCLASS()
 class SIMPLERTS_API ABaseBuilding : public AActor
 {
@@ -29,7 +30,11 @@ private:
 	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* MainTexture;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
+	class USelectableComponent* SelectableComponent;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
+	class UMinimapRepresentationComponent* MinimapRepresentation;
 
 protected:
 	// Called when the game starts or when spawned

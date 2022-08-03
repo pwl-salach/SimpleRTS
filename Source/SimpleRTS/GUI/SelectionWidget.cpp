@@ -40,7 +40,8 @@ void USelectionWidget::Update(TArray<AActor*> SelectedObjects)
         }
     } else {
         UE_LOG(LogTemp, Warning, TEXT("Updating  USelectionWidget with multiple objects selected"));
-        uint8 Index = 0;
+        uint8 ColumnIndex = 0;
+        uint8 RowIndex = 0;
         for(AActor* IterActor : SelectedObjects){
             UImage* IterAvatar = CreateAvatar(IterActor);
             TargetWidget->AddChild(IterAvatar);
@@ -49,9 +50,13 @@ void USelectionWidget::Update(TArray<AActor*> SelectedObjects)
             if (AvatarSlot)
             {
                 AvatarSlot->SetSize(FVector2D(IterAvatarWidth, IterAvatarHeight));
-                AvatarSlot->SetPosition(FVector2D(FIntPoint(Index * (IterAvatarWidth + HorizontalMargin), VerticalMargin)));
+                AvatarSlot->SetPosition(FVector2D(FIntPoint(ColumnIndex * (IterAvatarWidth + HorizontalMargin), RowIndex * (IterAvatarHeight + VerticalMargin))));
             }
-            Index++;
+            ColumnIndex++;
+            if(ColumnIndex == MultiSelectionRowLength) {
+                ColumnIndex = 0;
+                RowIndex++;
+            }
         }
     }
 }
@@ -70,17 +75,12 @@ void USelectionWidget::ClearSelection()
 
 UImage* USelectionWidget::CreateAvatar(AActor* SelectedActor) 
 {
-    TArray<USelectableComponent*> SelectableRepresentation;
-    UImage* IterAvatar;
-    SelectedActor->GetComponents(SelectableRepresentation);
-    if(SelectableRepresentation.Num() != 1){
-        UE_LOG(LogTemp, Error, TEXT("Wrong USelectableComponent setup of Actor: %s. Number of attached components: %d"), *SelectedActor->GetName(), SelectableRepresentation.Num())
-    }
-    USelectableComponent* IterComponent = SelectableRepresentation[0];
-    FString AvatarName = FString::Printf(TEXT("%s_Avatar"), *SelectedActor->GetName());
+    USelectableComponent* IterComponent = Cast<USelectableComponent>(SelectedActor->GetComponentByClass(USelectableComponent::StaticClass()));
     if(WidgetTree == nullptr){
         UE_LOG(LogTemp, Error, TEXT("EMPTY WidgetTree"));
     }
+    FString AvatarName = FString::Printf(TEXT("%s_Avatar"), *SelectedActor->GetName());
+    UImage* IterAvatar;
     IterAvatar = WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), *AvatarName);
     IterAvatar->SetBrushFromTexture(IterComponent->GetAvatar());
     return IterAvatar;

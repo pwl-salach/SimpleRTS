@@ -23,11 +23,24 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	class USelectableComponent* SelectableComponent;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
+	float Speed;
+	
+	// UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=StaticMesh, ReplicatedUsing=OnRep_StaticMesh, meta=(AllowPrivateAccess="true"))
+	// UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=StaticMesh, meta=(AllowPrivateAccess = "true"))
+	// class UMinimapRepresentationComponent* MinimapRepresentation;
+
+	FVector CurrentLocation;
+	FVector TargetLocation;
+	ABaseUnit* TargetUnit;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	void MoveToLocation(FVector NewTargetLocation);
 
 };

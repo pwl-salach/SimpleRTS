@@ -30,18 +30,19 @@ private:
 	UPanelWidget* TargetWidget;
 
 
-	// UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UImage* SingleAvatar;
 	TArray<UImage*> MultipleAvatars;
 
 	void ClearSelection();
 	UImage* CreateAvatar(AActor* SelectedActor);
 
+	// FIXME: hardcoded values - make them dependant on screen resolution
 	float SingleAvatarHeight = 300;
 	float SingleAvatarWidth = 200;
 	
-	float IterAvatarHeight = 210;
-	float IterAvatarWidth = 140;
+	float IterAvatarHeight = 150;
+	float IterAvatarWidth = 90;
 	float VerticalMargin = 50;
-	float HorizontalMargin = 50;	
+	float HorizontalMargin = 50;
+	uint8 MultiSelectionRowLength = 5;
 };

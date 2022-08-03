@@ -25,11 +25,19 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	UTexture2D* GetAvatar();
+	uint8 GetPriority();
+	void SetPriority(uint8 NewPriority);
+	bool CanMove();
+
 private:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	uint8 Priority;
 	bool Selected;
 	bool Focused;
-	
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
+	bool Mobile;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	UTexture2D* Avatar;
 

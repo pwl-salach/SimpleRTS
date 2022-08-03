@@ -3,6 +3,8 @@
 
 #include "BaseBuilding.h"
 #include "Components/CapsuleComponent.h"
+#include "../Components/SelectableComponent.h"
+#include "../Components/MinimapRepresentationComponent.h"
 
 
 // Sets default values
@@ -16,6 +18,12 @@ ABaseBuilding::ABaseBuilding()
 	MainTexture = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Main Texture"));
 	MainTexture->SetupAttachment(CapsuleComponent);
 
+	SelectableComponent = CreateDefaultSubobject<USelectableComponent>(TEXT("Selected Representation"));
+	SelectableComponent->SetPriority(10);
+	SelectableComponent->RegisterComponent();
+
+	MinimapRepresentation = CreateDefaultSubobject<UMinimapRepresentationComponent>(TEXT("Minimap Representation"));
+	MinimapRepresentation->SetupAttachment(CapsuleComponent);
 }
 
 // Called when the game starts or when spawned
