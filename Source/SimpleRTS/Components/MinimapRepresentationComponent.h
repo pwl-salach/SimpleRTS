@@ -28,9 +28,9 @@ public:
 	virtual void OnAttachmentChanged() override;
 
 private:
-	// UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	class UStaticMesh* MinimapSprite;
-
+	class UMaterial* MinimapMaterial;
+	class UMaterialInstanceDynamic* MinimapMaterialInstance;
 
 	void SetupForBuildingOwner();
 	void SetupForHeroOwner();

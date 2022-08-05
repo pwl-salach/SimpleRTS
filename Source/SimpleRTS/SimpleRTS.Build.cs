@@ -19,7 +19,8 @@ public class SimpleRTS : ModuleRules
 			// "LandscapeEditor"
 			"Slate",
 			"SlateCore",
-			"UMG"
+			"UMG",
+			"AIModule"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

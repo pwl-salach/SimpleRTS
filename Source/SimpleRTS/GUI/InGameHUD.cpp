@@ -5,7 +5,7 @@
 #include "MinimapWidget.h"
 #include "SelectionWidget.h"
 // utils
-#include "../GameUtils/MousePlayerController.h"
+#include "../Controllers/MousePlayerController.h"
 // UE
 #include "UObject/ConstructorHelpers.h"
 

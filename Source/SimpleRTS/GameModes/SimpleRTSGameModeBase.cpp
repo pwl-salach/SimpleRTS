@@ -1,8 +1,9 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "SimpleRTSGameModeBase.h"
+#include "../Controllers/MousePlayerController.h"
 #include "../GameUtils/CameraPawn.h"
-#include "../GameUtils/MousePlayerController.h"
+#include "../GameUtils/GenericPlayerState.h"
 #include "../GUI/InGameHUD.h"
 
 void ASimpleRTSGameModeBase::BeginPlay()
@@ -26,4 +27,5 @@ ASimpleRTSGameModeBase::ASimpleRTSGameModeBase()
     DefaultPawnClass = ACameraPawn::StaticClass();
     PlayerControllerClass = AMousePlayerController::StaticClass();
     HUDClass = AInGameHUD::StaticClass();
+    PlayerStateClass = AGenericPlayerState::StaticClass();
 }

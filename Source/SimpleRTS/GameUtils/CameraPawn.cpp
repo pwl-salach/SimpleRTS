@@ -15,7 +15,7 @@ ACameraPawn::ACameraPawn()
 	RotateSpeed = 200;
 	ZoomingSpeed = 100;
 
-	MinZoom = 300;
+	MinZoom = 50;
 	MaxZoom = 2000;
 	MinHeightAboveLandscape = 50;
 	MaxHeightAboveLandscape = 200;

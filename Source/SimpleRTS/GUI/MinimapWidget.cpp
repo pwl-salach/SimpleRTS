@@ -35,12 +35,12 @@ void UMinimapWidget::NativeConstruct() {
         if (CurrentLandscape != nullptr) {
 #if WITH_EDITOR
             // GetBoundingRect is not available outside editor
-            FIntRect LandscapeBounderis = CurrentLandscape->GetBoundingRect();
+            FIntRect LandscapeBoundaries = CurrentLandscape->GetBoundingRect();
             FVector LandscapeScale = CurrentLandscape->GetActorScale3D();
-            MinX = FMath::Min(LandscapeBounderis.Min.X * LandscapeScale.X, MinX);
-            MaxX = FMath::Max(LandscapeBounderis.Max.X * LandscapeScale.X, MaxX);
-            MinY = FMath::Min(LandscapeBounderis.Min.Y * LandscapeScale.Y, MinY);
-            MaxY = FMath::Max(LandscapeBounderis.Max.Y * LandscapeScale.Y, MaxY);
+            MinX = FMath::Min(LandscapeBoundaries.Min.X * LandscapeScale.X, MinX);
+            MaxX = FMath::Max(LandscapeBoundaries.Max.X * LandscapeScale.X, MaxX);
+            MinY = FMath::Min(LandscapeBoundaries.Min.Y * LandscapeScale.Y, MinY);
+            MaxY = FMath::Max(LandscapeBoundaries.Max.Y * LandscapeScale.Y, MaxY);
 #endif
         }
     }

@@ -2,9 +2,10 @@
 
 #include "BaseUnit.h"
 
-#include "../Components/SelectableComponent.h"
 #include "../Components/MinimapRepresentationComponent.h"
+#include "../Components/SelectableComponent.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets default values
 ABaseUnit::ABaseUnit() {
@@ -15,8 +16,8 @@ ABaseUnit::ABaseUnit() {
     SelectableComponent->SetPriority(20);
     SelectableComponent->RegisterComponent();
 
-	// MinimapRepresentation = CreateDefaultSubobject<UMinimapRepresentationComponent>(TEXT("Minimap Representation"));
-	// MinimapRepresentation->SetupAttachment(RootComponent);
+    MinimapRepresentation = CreateDefaultSubobject<UMinimapRepresentationComponent>(TEXT("Minimap Representation"));
+    MinimapRepresentation->SetupAttachment(RootComponent);
 
     Speed = 50;
 }
@@ -33,7 +34,7 @@ void ABaseUnit::Tick(float DeltaTime) {
     // FVector Delta = GetActorLocation() - TargetLocation;
     // float DistanceToGoal = Delta.Size();
     // if (DistanceToGoal > 75) {
-        // UAIBlueprintHelperLibrary::SimpleMoveToLocation(GetController(), TargetLocation);
+    // UAIBlueprintHelperLibrary::SimpleMoveToLocation(GetController(), TargetLocation);
     // }
 }
 
@@ -43,6 +44,13 @@ void ABaseUnit::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 }
 
 void ABaseUnit::MoveToLocation(FVector NewTargetLocation) {
-    TargetLocation = NewTargetLocation;
-    SetActorLocation(NewTargetLocation);
+    TargetLocation = TranslateToCapsuleCenterLocation(NewTargetLocation);
+    SetActorLocation(TargetLocation);
+}
+
+FVector ABaseUnit::TranslateToCapsuleCenterLocation(FVector Location) {
+    float HalfHeight;
+    float Radius;
+    GetCapsuleComponent()->CalcBoundingCylinder(Radius, HalfHeight);
+    return FVector(Location.X, Location.Y, Location.Z + HalfHeight);
 }

@@ -26,9 +26,8 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	float Speed;
 	
-	// UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=StaticMesh, ReplicatedUsing=OnRep_StaticMesh, meta=(AllowPrivateAccess="true"))
-	// UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=StaticMesh, meta=(AllowPrivateAccess = "true"))
-	// class UMinimapRepresentationComponent* MinimapRepresentation;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	class UMinimapRepresentationComponent* MinimapRepresentation;
 
 	FVector CurrentLocation;
 	FVector TargetLocation;
@@ -42,5 +41,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void MoveToLocation(FVector NewTargetLocation);
+
+	FVector TranslateToCapsuleCenterLocation(FVector Location);
 
 };
